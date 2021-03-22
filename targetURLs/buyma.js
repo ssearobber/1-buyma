@@ -134,8 +134,8 @@ async function buyma(row) {
     row.status = '完了';
     await row.save(); // save changes
 
-    // await page.close();
-    // await browser.close();
+    await page.close();
+    await browser.close();
 
     // 성공한값 sns전송
     lineSend(row.productName);
