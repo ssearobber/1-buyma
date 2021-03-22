@@ -6,7 +6,7 @@ require('dotenv').config();
 // schedule.scheduleJob('0 0 6 * * *', function () {
 //   googleSheet();
 // });
-// googleSheet();
-schedule.scheduleJob(process.env.SCHELDULE_TIME || schelduleTime, function () {
-  googleSheet();
-});
+googleSheet();
+// schedule.scheduleJob(process.env.SCHELDULE_TIME || schelduleTime, function () {
+//   googleSheet();
+// });
