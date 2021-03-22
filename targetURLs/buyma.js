@@ -6,22 +6,22 @@ let fs = require('fs');
 // insert data in buyma
 async function buyma(row) {
     
-    const id = process.env.BUYMA_ID;
-    const password = process.env.BUYMA_PASSWORD;
+    const id = process.env.BUYMA_ID || buymaId;
+    const password = process.env.BUYMA_PASSWORD || buymaPassword;
     let array1 = [];//색 나누기
     let array2 = [];//색 나누기
     let imagePathArray = []; // 이미지 path 격납
     
     try {
         const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: [
             '--window-size=1920,1080',
             '--disable-notifications',
             '--no-sandbox',
             '--disable-setuid-sandbox',
         ],
-        userDataDir: "/Users/samugari/Desktop/Chrome/UserData" // 로그인 정보 쿠키 저장
+        // userDataDir: "/Users/samugari/Desktop/Chrome/UserData" // 로그인 정보 쿠키 저장
     });
     const page = await browser.newPage();
     await page.setViewport({
@@ -99,6 +99,18 @@ async function buyma(row) {
     }
 
     //(サイズ)
+    await page.waitForSelector('#react-tabs-2');
+    await page.click('#react-tabs-2');
+    await page.waitForSelector('#react-select-14--value .Select-placeholder');
+    await page.click('#react-select-14--value .Select-placeholder');
+    await page.waitForSelector(`div[aria-label="${row.size}"]`);
+    await page.click(`div[aria-label="${row.size}"]`);
+
+    //(販売可否/在庫)
+    await page.waitForSelector('.sell-amount-input input.bmm-c-text-field.bmm-c-text-field--half-size-char');
+    await page.type('.sell-amount-input input.bmm-c-text-field.bmm-c-text-field--half-size-char',row.inventory);
+    
+
     //TODO (配送方法) 정적으로 밑에서 2개만 체크하는 형식으로 만듬
     if (row.shippingMethod) await page.evaluate(() => { document.querySelector(".bmm-c-form-table__body .bmm-c-form-table__table tr:nth-child(11)").click();});//5〜12日
     if (row.shippingMethod) await page.evaluate(() => { document.querySelector(".bmm-c-form-table__body .bmm-c-form-table__table tr:nth-child(12)").click();});//30〜45日
@@ -128,7 +140,24 @@ async function buyma(row) {
         page.click('.bmm-c-img-upload__dropzone'),
     ])
     await fileChooser.accept(imagePathArray);
+    await page.waitForTimeout(5000);
     
+    //入力内容を確認するボタン
+    await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
+    await page.click('.bmm-c-btns--balance-width button:nth-child(2)');
+
+    //入力内容を確認するボタン後、モダル
+    await page.waitForSelector('.bmm-c-modal__btns button:nth-child(2)');
+    await page.click('.bmm-c-modal__btns button:nth-child(2)');
+
+    //출품 url
+    await page.waitForTimeout(5000);
+    page.waitForNavigation();
+    await page.waitForSelector('.sell-complete__lead a');
+    await page.click('.sell-complete__lead a');
+    await page.waitForTimeout(5000);
+    page.waitForNavigation();
+    await page.waitForSelector('#js-add-cart-action');
 
     //(状態) 변경
     row.status = '完了';
@@ -138,7 +167,7 @@ async function buyma(row) {
     await browser.close();
 
     // 성공한값 sns전송
-    lineSend(row.productName);
+    lineSend(page.url());
 
     }
     catch(e) {
@@ -149,6 +178,7 @@ async function buyma(row) {
 
         // 실패한값 sns전송
         lineSend(row.productName);
+
     }
     
 }

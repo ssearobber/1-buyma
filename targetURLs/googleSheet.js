@@ -9,7 +9,7 @@ async function googleSheet() {
 
     // 시트 url중 값
     // Initialize the sheet - doc ID is the long id in the sheets URL
-    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREAD_ID);
+    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREAD_ID || googleSpreadId);
 
     // GOOGLE_API_KEY로 구글API다루는 방법. 읽는것만 가능.
     // doc.useApiKey(process.env.GOOGLE_API_KEY);
@@ -17,15 +17,15 @@ async function googleSheet() {
     // GOOGLE_SERVICE로 구글API다루는 방법. 편집 가능.
     // Initialize Auth - see more available options at https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication
     await doc.useServiceAccountAuth({
-        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY,
+        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || googleServiceAccountEmail,
+        private_key: process.env.GOOGLE_PRIVATE_KEY || googlePrivateKey,
     });
 
     // loads document properties and worksheets
     await doc.loadInfo();
 
     // the buymaList 시트ID로 시트취득
-    const sheet = doc.sheetsById[process.env.GOOGLE_SHEET_ID];
+    const sheet = doc.sheetsById[process.env.GOOGLE_SHEET_ID || googleSheetId];
 
     // rows 취득
     const rows = await sheet.getRows();
@@ -35,6 +35,7 @@ async function googleSheet() {
         // 승인된 값이 아닌경우 패스
         if(rows[i].status != "承認") continue;
 
+        await rmdir();
         // tempSave폴더 생성
         await mkdir();
 
@@ -61,7 +62,7 @@ async function mkdir() {
 
 // tempSave폴더 삭제
 async function rmdir() {
-        rimraf(path.join(__dirname, '../tempSave'), function () { console.log("폴더 삭제"); });
+        rimraf.sync(path.join(__dirname, '../tempSave'));
 }
 
 module.exports.googleSheet = googleSheet;

@@ -4,11 +4,11 @@ const fs = require('fs');
 require('dotenv').config(); 
 
 
-const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID || googleClientId;
+const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || googleClientSecret;
+const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || googleRedirectUri;
 
-const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
+const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN || googleRefreshToken;
 
 const oauth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -24,7 +24,7 @@ const drive = google.drive({
 });
 
 // image폴더id
-const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID || googleDriveFolderId;
 // image폴더안에 있는 폴더명들 격납
 let folderNameArray = [];
 // 숫자폴더안에 있는 파일명들 격납
