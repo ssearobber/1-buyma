@@ -140,7 +140,7 @@ async function buyma(row) {
         page.click('.bmm-c-img-upload__dropzone'),
     ])
     await fileChooser.accept(imagePathArray);
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(20000);
     
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
@@ -151,11 +151,11 @@ async function buyma(row) {
     await page.click('.bmm-c-modal__btns button:nth-child(2)');
 
     //출품 url
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(10000);
     page.waitForNavigation();
     await page.waitForSelector('.sell-complete__lead a');
     await page.click('.sell-complete__lead a');
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(10000);
     page.waitForNavigation();
     await page.waitForSelector('#js-add-cart-action');
 
