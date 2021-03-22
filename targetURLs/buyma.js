@@ -14,7 +14,7 @@ async function buyma(row) {
     
     try {
         const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: [
             '--window-size=1920,1080',
             '--disable-notifications',
@@ -152,11 +152,9 @@ async function buyma(row) {
 
     //출품 url
     await page.waitForTimeout(10000);
-    page.waitForNavigation();
     await page.waitForSelector('.sell-complete__lead a');
     await page.click('.sell-complete__lead a');
     await page.waitForTimeout(10000);
-    page.waitForNavigation();
     await page.waitForSelector('#js-add-cart-action');
 
     //(状態) 변경
