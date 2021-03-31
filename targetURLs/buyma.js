@@ -11,10 +11,12 @@ async function buyma(row) {
     let array1 = [];//색 나누기
     let array2 = [];//색 나누기
     let imagePathArray = []; // 이미지 path 격납
-    
+    let browser = {};
+    let page = {};
+
     try {
-        const browser = await puppeteer.launch({
-        headless: true,
+        browser = await puppeteer.launch({
+        headless: false,
         args: [
             '--window-size=1920,1080',
             '--disable-notifications',
@@ -23,7 +25,7 @@ async function buyma(row) {
         ],
         // userDataDir: "/Users/samugari/Desktop/Chrome/UserData" // 로그인 정보 쿠키 저장
     });
-    const page = await browser.newPage();
+    page = await browser.newPage();
     await page.setViewport({
         width: 1280,
         height: 1080,
@@ -165,7 +167,7 @@ async function buyma(row) {
     await browser.close();
 
     // 성공한값 sns전송
-    lineSend(page.url());
+    // lineSend(page.url());
 
     }
     catch(e) {
@@ -174,8 +176,11 @@ async function buyma(row) {
         row.status = 'エラー';
         await row.save(); // save changes
 
+        await page.close();
+        await browser.close();
+
         // 실패한값 sns전송
-        lineSend(row.productName);
+        // lineSend(row.productName);
 
     }
     

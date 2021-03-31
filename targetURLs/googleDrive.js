@@ -8,13 +8,21 @@ const CLIENT_ID = process.env.GOOGLE_CLIENT_ID || googleClientId;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || googleClientSecret;
 const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || googleRedirectUri;
 
-const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN || googleRefreshToken;
+let REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN || googleRefreshToken;
 
 const oauth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECT_URI
 );
+
+oauth2Client.on('tokens', (tokens) => {
+  if (tokens.refresh_token) {
+    REFRESH_TOKEN = tokens.access_token;
+    console.log(tokens.access_token);
+  }
+  console.log(tokens.access_token);
+});
 
 oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
@@ -58,7 +66,7 @@ async function getFolderName() {
     });
     return response.data.files;
   } catch (error) {
-    console.log('getFolderName',error.message);
+    console.log('getFolderName 에러',error.message);
   }
 }
 
@@ -76,7 +84,7 @@ async function getFileName( folderId ) {
     });
     return response.data.files;
   } catch (error) {
-    console.log('getFileName',error.message);
+    console.log('getFileName 에러',error.message);
   }
 }
 
@@ -95,7 +103,7 @@ async function downloadFile( fileId , fileName) {
       function(err, response){
         if(err)return console.log("err",err); 
         response.data.on('error', err => {
-             console.log('downloadFile', err)
+             console.log('downloadFile 에러', err)
         }).on('end', ()=>{
             console.log('Done downloadFile');
         })
