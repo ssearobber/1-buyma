@@ -33,7 +33,7 @@ let fileNameArray = [];
 
 async function googleDrive(folderName) {
 
-    folderNameArray = await getFolderName()
+    folderNameArray = await getFolderName();
     folderNameArray.forEach(async (v) => {
         if (v.name == folderName) {
             fileNameArray = await getFileName(v.id);
