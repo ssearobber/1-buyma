@@ -19,9 +19,9 @@ const oauth2Client = new google.auth.OAuth2(
 oauth2Client.on('tokens', (tokens) => {
   if (tokens.refresh_token) {
     REFRESH_TOKEN = tokens.access_token;
-    console.log(tokens.access_token);
+    console.log("REFRESH_TOKEN 확인", tokens.access_token);
   }
-  console.log(tokens.access_token);
+  console.log("REFRESH_TOKEN 확인2", tokens.access_token);
 });
 
 oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
