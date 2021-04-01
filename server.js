@@ -1,6 +1,6 @@
 const { googleSheet } = require('./targetURLs/googleSheet');
 const express = require('express');
-const app = express();
+// const app = express();
 const schedule = require('node-schedule');
 require('dotenv').config(); 
 
