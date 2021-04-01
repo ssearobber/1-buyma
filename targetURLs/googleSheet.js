@@ -31,7 +31,7 @@ async function googleSheet() {
     const rows = await sheet.getRows();
 
     // insert data in buyma
-    for (i = 1 ; i < rows.length-2 ; i ++) {
+    for (i = 1 ; i < rows.length ; i ++) {
         // 승인된 값이 아닌경우 패스
         if(rows[i].status != "承認") continue;
 

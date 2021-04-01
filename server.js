@@ -1,9 +1,8 @@
 const { googleSheet } = require('./targetURLs/googleSheet');
-const express = require('express');
+// const express = require('express');
 // const app = express();
 const schedule = require('node-schedule');
 require('dotenv').config(); 
-
 
 // app.get('/', (req, res) => {
 //   res.send('Hello World!')
@@ -16,7 +15,7 @@ require('dotenv').config();
 // })
 
 
-schedule.scheduleJob(process.env.SCHELDULE_TIME || schelduleTime, function () {
+schedule.scheduleJob(process.env.SCHELDULE_TIME || schelduleTime, async function () {
     console.log("매크로 실행");
-    googleSheet();
+    await googleSheet();
 });
