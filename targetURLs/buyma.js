@@ -167,7 +167,7 @@ async function buyma(row) {
     await browser.close();
 
     // 성공한값 sns전송
-    // lineSend(page.url());
+    lineSend(page.url());
 
     }
     catch(e) {

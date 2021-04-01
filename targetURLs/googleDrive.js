@@ -16,12 +16,13 @@ const oauth2Client = new google.auth.OAuth2(
   REDIRECT_URI
 );
 
+// 토큰 획득
 oauth2Client.on('tokens', (tokens) => {
   if (tokens.refresh_token) {
     REFRESH_TOKEN = tokens.access_token;
-    console.log("REFRESH_TOKEN 확인", tokens.access_token);
+    console.log("REFRESH_TOKEN 기존 기존");
   }
-  console.log("REFRESH_TOKEN 확인2", tokens.access_token);
+  console.log("REFRESH_TOKEN 새로운 토큰");
 });
 
 oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
@@ -42,7 +43,6 @@ let fileNameArray = [];
 async function googleDrive(folderName) {
 
     folderNameArray = await getFolderName();
-    console.log("folderNameArray 값 확인", folderNameArray);
     folderNameArray.forEach(async (v) => {
         if (v.name == folderName) {
             fileNameArray = await getFileName(v.id);
