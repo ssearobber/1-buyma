@@ -16,12 +16,10 @@ async function buyma(row) {
 
     try {
         browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: [
             // '--window-size=1920,1080',
             // '--disable-notifications',
-            "--disable-gpu",
-            "--disable-dev-shm-usage",
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
