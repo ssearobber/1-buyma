@@ -22,12 +22,11 @@ async function buyma(row) {
             // '--disable-notifications',
             "--disable-gpu",
             "--disable-dev-shm-usage",
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
         ],
         // userDataDir: "/Users/samugari/Desktop/Chrome/UserData" // 로그인 정보 쿠키 저장
     });
-    console.log("browser 생성", browser);
     page = await browser.newPage();
     await page.setViewport({
         width: 1280,
