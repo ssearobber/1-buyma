@@ -174,7 +174,7 @@ async function buyma(row) {
         console.log(e);
         // 에러값 저장
         row.status = 'エラー';
-        // row.log = e.message;
+        row.log = e.message;
         await row.save(); // save changes
 
         await page.close();
