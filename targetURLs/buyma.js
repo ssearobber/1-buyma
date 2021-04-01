@@ -18,13 +18,16 @@ async function buyma(row) {
         browser = await puppeteer.launch({
         headless: false,
         args: [
-            '--window-size=1920,1080',
-            '--disable-notifications',
+            // '--window-size=1920,1080',
+            // '--disable-notifications',
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
             '--no-sandbox',
             '--disable-setuid-sandbox',
         ],
         // userDataDir: "/Users/samugari/Desktop/Chrome/UserData" // 로그인 정보 쿠키 저장
     });
+    console.log("browser 생성", browser);
     page = await browser.newPage();
     await page.setViewport({
         width: 1280,
