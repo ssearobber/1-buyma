@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const { lineSend } = require('../util/sns');
 const path = require('path');
 let fs = require('fs');
+const { throws } = require('assert');
 
 // insert data in buyma
 async function buyma(row) {
@@ -148,6 +149,15 @@ async function buyma(row) {
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
     await page.click('.bmm-c-btns--balance-width button:nth-child(2)');
 
+    //에러 존재 확인 (에러가 존재하면 문자열로 만들어서 throw함)
+    await page.waitForTimeout(10000);
+    let errData = await page.evaluate(() => {
+        let errString = Array.from(document.querySelectorAll(".bmm-c-box--overall-alert ul li")).reduce((preVal,CurVal) => {
+                return preVal + "\n" + CurVal.textContent}, ""); 
+        return errString;
+    });
+    if (errData) throw new SyntaxError(errData);
+
     //入力内容を確認するボタン後、モダル
     await page.waitForSelector('.bmm-c-modal__btns button:nth-child(2)');
     await page.click('.bmm-c-modal__btns button:nth-child(2)');
@@ -174,7 +184,12 @@ async function buyma(row) {
         console.log(e);
         // 에러값 저장
         row.status = 'エラー';
-        row.log = e.message;
+        if (e instanceof SyntaxError) {
+            row.errData = e.message;
+        } else {
+            row.log = e.message;
+        }
+
         await row.save(); // save changes
 
         await page.close();
