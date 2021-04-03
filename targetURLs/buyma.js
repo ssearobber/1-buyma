@@ -90,8 +90,8 @@ async function buyma(row) {
         //(色の系統) 클릭
         await page.click(`tbody tr:nth-child(${i+1}) td span div`);
         //(色の系統)
-        await page.waitForSelector(`tbody tr:nth-child(${i+1}) td:nth-child(${i+1}) .Select-menu div[aria-label="${array2[0]}"]`);
-        await page.click(`tbody tr:nth-child(${i+1}) td:nth-child(${i+1}) .Select-menu div[aria-label="${array2[0]}"]`);
+        await page.waitForSelector(`tbody tr:nth-child(${i+1}) .Select.is-open .Select-menu-outer .Select-menu div[aria-label="${array2[0]}"]`);
+        await page.click(`tbody tr:nth-child(${i+1}) .Select.is-open .Select-menu-outer .Select-menu div[aria-label="${array2[0]}"]`);
         //(色名)
         await page.waitForSelector(`tbody tr:nth-child(${i+1}) td:nth-child(3) .bmm-c-text-field`);
         await page.type(`tbody tr:nth-child(${i+1}) td:nth-child(3) .bmm-c-text-field`,array2[1]);
@@ -103,8 +103,8 @@ async function buyma(row) {
     //(サイズ)
     await page.waitForSelector('#react-tabs-2');
     await page.click('#react-tabs-2');
-    await page.waitForSelector('#react-select-14--value .Select-placeholder');
-    await page.click('#react-select-14--value .Select-placeholder');
+    await page.waitForSelector('#react-select-17--value .Select-placeholder');
+    await page.click('#react-select-17--value .Select-placeholder');
     await page.waitForSelector(`div[aria-label="${row.size}"]`);
     await page.click(`div[aria-label="${row.size}"]`);
 
@@ -142,7 +142,7 @@ async function buyma(row) {
         page.click('.bmm-c-img-upload__dropzone'),
     ])
     await fileChooser.accept(imagePathArray);
-    await page.waitForTimeout(20000);
+    await page.waitForTimeout(30000);
     
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
@@ -153,10 +153,10 @@ async function buyma(row) {
     await page.click('.bmm-c-modal__btns button:nth-child(2)');
 
     //출품 url
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(20000);
     await page.waitForSelector('.sell-complete__lead a');
     await page.click('.sell-complete__lead a');
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(20000);
     await page.waitForSelector('#js-add-cart-action');
 
     //(状態) 변경
