@@ -131,9 +131,7 @@ async function buyma(row) {
     await page.type('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char',row.productPrice);
     
     //(商品画像)
-    await fs.readdir(path.join(__dirname, '../tempSave'), async function(error, fileList){
-        console.log("tempSave 경로", path.join(__dirname, '../tempSave'));
-        console.log("fileList 확인", fileList);
+    fs.readdirSync(path.join(__dirname, '../tempSave'), async function(error, fileList){
         imagePathArray = await fileList.map((v) => {
             return path.join(__dirname, `../tempSave/${v}`);
         })
