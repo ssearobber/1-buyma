@@ -135,6 +135,7 @@ async function buyma(row) {
         imagePathArray = await fileList.map((v) => {
             return path.join(__dirname, `../tempSave/${v}`);
         })
+        console.log("imagePathArray fs내부 확인", imagePathArray);
         if(error)return console.log("error",error);
     })
     console.log("imagePathArray 확인", imagePathArray);
