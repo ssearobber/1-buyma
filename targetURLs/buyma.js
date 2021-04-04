@@ -2,7 +2,6 @@ const puppeteer = require('puppeteer');
 const { lineSend } = require('../util/sns');
 const path = require('path');
 let fs = require('fs');
-const { throws } = require('assert');
 
 // insert data in buyma
 async function buyma(row) {
@@ -143,7 +142,7 @@ async function buyma(row) {
         page.click('.bmm-c-img-upload__dropzone'),
     ])
     await fileChooser.accept(imagePathArray);
-    await page.waitForTimeout(30000);
+    await page.waitForTimeout(40000);
     
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
