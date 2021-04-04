@@ -23,13 +23,13 @@ async function buyma(row) {
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
-        userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
+        // userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
-    await page.setViewport({
-        width: 1280,
-        height: 1080,
-    });
+    // await page.setViewport({
+    //     width: 1280,
+    //     height: 1080,
+    // });
     await page.setDefaultNavigationTimeout(0);
     await page.goto('https://www.buyma.com/my/sell/new?tab=b');
 
