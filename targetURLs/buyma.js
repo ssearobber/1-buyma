@@ -132,6 +132,8 @@ async function buyma(row) {
     
     //(商品画像)
     fs.readdir(path.join(__dirname, '../tempSave'), async function(error, fileList){
+        console.log("tempSave 경로", path.join(__dirname, '../tempSave'));
+        console.log("fileList 확인", fileList);
         fileList.forEach((v) => {
             imagePathArray.push(path.join(__dirname, `../tempSave/${v}`));
         })
