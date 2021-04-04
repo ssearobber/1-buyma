@@ -46,23 +46,6 @@ async function buyma(row) {
         console.log('로그인했습니다.')
     }
 
-    //(商品画像)
-    imagePathArray = fs.readdirSync(path.join(__dirname, '../tempSave'), function(error, fileList){
-        if(error)return console.log("error",error);
-        return fileList;
-    })
-    imagePathArray = imagePathArray.map((v) => {
-        return path.join(__dirname, `../tempSave/${v}`);
-    });
-    const[fileChooser] = await Promise.all([
-        page.waitForFileChooser(),
-        page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
-    ])
-    console.log("imagePathArray 확인", imagePathArray);
-    await fileChooser.accept(imagePathArray);
-    await page.waitForTimeout(20000);
-    console.log("imagePathArray 확인2", imagePathArray);
-
     //(商品名)
     await page.waitForSelector('.bmm-c-field__input input.bmm-c-text-field');
     await page.type('.bmm-c-field__input input.bmm-c-text-field',row.productName);
@@ -147,6 +130,23 @@ async function buyma(row) {
     await page.focus('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char');
     await page.type('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char',row.productPrice);
     
+    //(商品画像)
+    imagePathArray = fs.readdirSync(path.join(__dirname, '../tempSave'), function(error, fileList){
+        if(error)return console.log("error",error);
+        return fileList;
+    })
+    imagePathArray = imagePathArray.map((v) => {
+        return path.join(__dirname, `../tempSave/${v}`);
+    });
+    const[fileChooser] = await Promise.all([
+        page.waitForFileChooser(),
+        page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
+    ])
+    console.log("imagePathArray 확인", imagePathArray);
+    await fileChooser.accept(imagePathArray);
+    await page.waitForTimeout(20000);
+    console.log("imagePathArray 확인2", imagePathArray);
+
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
     await page.click('.bmm-c-btns--balance-width button:nth-child(2)');
