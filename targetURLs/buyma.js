@@ -132,14 +132,12 @@ async function buyma(row) {
     
     //(商品画像)
     imagePathArray = fs.readdirSync(path.join(__dirname, '../tempSave'), async function(error, fileList){
-        imagePathArray = await fileList.map((v) => {
-            return path.join(__dirname, `../tempSave/${v}`);
-        })
         if(error)return console.log("error",error);
-
-        return imagePathArray;
+        return fileList;
     })
-    console.log("imagePathArray 확인", imagePathArray);
+    imagePathArray = await imagePathArray.map((v) => {
+        return path.join(__dirname, `../tempSave/${v}`);
+    });
     const[fileChooser] = await Promise.all([
         page.waitForFileChooser(),
         page.click('.bmm-c-img-upload__dropzone'),
