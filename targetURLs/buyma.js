@@ -143,9 +143,9 @@ async function buyma(row) {
         page.click('.bmm-c-img-upload__dropzone'),
     ])
     console.log("imagePathArray 확인", imagePathArray);
-    console.log("fileChooser", fileChooser);
     await fileChooser.accept(imagePathArray);
-    await page.waitForTimeout(100000);
+    await page.waitForTimeout(50000);
+    console.log("imagePathArray 확인2", imagePathArray);
     
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
