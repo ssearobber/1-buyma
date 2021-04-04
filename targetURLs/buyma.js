@@ -26,10 +26,10 @@ async function buyma(row) {
         // userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
-    // await page.setViewport({
-    //     width: 1280,
-    //     height: 1080,
-    // });
+    await page.setViewport({
+        width: 1280,
+        height: 1080,
+    });
     await page.setDefaultNavigationTimeout(0);
     await page.goto('https://www.buyma.com/my/sell/new?tab=b');
 
@@ -45,6 +45,23 @@ async function buyma(row) {
         }, id,password);
         console.log('로그인했습니다.')
     }
+
+    //(商品画像)
+    imagePathArray = fs.readdirSync(path.join(__dirname, '../tempSave'), function(error, fileList){
+        if(error)return console.log("error",error);
+        return fileList;
+    })
+    imagePathArray = imagePathArray.map((v) => {
+        return path.join(__dirname, `../tempSave/${v}`);
+    });
+    const[fileChooser] = await Promise.all([
+        page.waitForFileChooser(),
+        page.click('.bmm-c-img-upload__dropzone.bmm-c-img-upload__dropzone--cover'),
+    ])
+    console.log("imagePathArray 확인", imagePathArray);
+    await fileChooser.accept(imagePathArray);
+    await page.waitForTimeout(20000);
+    console.log("imagePathArray 확인2", imagePathArray);
 
     //(商品名)
     await page.waitForSelector('.bmm-c-field__input input.bmm-c-text-field');
@@ -129,23 +146,6 @@ async function buyma(row) {
     await page.waitForSelector('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char');
     await page.focus('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char');
     await page.type('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char',row.productPrice);
-    
-    //(商品画像)
-    imagePathArray = fs.readdirSync(path.join(__dirname, '../tempSave'), async function(error, fileList){
-        if(error)return console.log("error",error);
-        return fileList;
-    })
-    imagePathArray = await imagePathArray.map((v) => {
-        return path.join(__dirname, `../tempSave/${v}`);
-    });
-    const[fileChooser] = await Promise.all([
-        page.waitForFileChooser(),
-        page.click('.bmm-c-img-upload__dropzone.bmm-c-img-upload__dropzone--cover input'),
-    ])
-    console.log("imagePathArray 확인", imagePathArray);
-    await fileChooser.accept(imagePathArray);
-    await page.waitForTimeout(50000);
-    console.log("imagePathArray 확인2", imagePathArray);
     
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
