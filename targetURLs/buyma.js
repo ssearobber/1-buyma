@@ -134,8 +134,8 @@ async function buyma(row) {
     fs.readdir(path.join(__dirname, '../tempSave'), async function(error, fileList){
         console.log("tempSave 경로", path.join(__dirname, '../tempSave'));
         console.log("fileList 확인", fileList);
-        await fileList.forEach((v) => {
-            imagePathArray.push(path.join(__dirname, `../tempSave/${v}`));
+        imagePathArray = await fileList.map((v) => {
+            return path.join(__dirname, `../tempSave/${v}`);
         })
         if(error)return console.log("error",error);
     })
