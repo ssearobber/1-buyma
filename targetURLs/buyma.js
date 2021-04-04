@@ -131,12 +131,13 @@ async function buyma(row) {
     await page.type('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char',row.productPrice);
     
     //(商品画像)
-    fs.readdirSync(path.join(__dirname, '../tempSave'), async function(error, fileList){
+    imagePathArray = fs.readdirSync(path.join(__dirname, '../tempSave'), async function(error, fileList){
         imagePathArray = await fileList.map((v) => {
             return path.join(__dirname, `../tempSave/${v}`);
         })
-        console.log("imagePathArray fs내부 확인", imagePathArray);
         if(error)return console.log("error",error);
+
+        return imagePathArray;
     })
     console.log("imagePathArray 확인", imagePathArray);
     const[fileChooser] = await Promise.all([
