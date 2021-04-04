@@ -23,7 +23,7 @@ async function buyma(row) {
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
-        // userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
+        userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
     await page.setViewport({
@@ -56,7 +56,7 @@ async function buyma(row) {
     });
     const[fileChooser] = await Promise.all([
         page.waitForFileChooser(),
-        page.click('.bmm-c-img-upload__dropzone'),
+        await page.click('.bmm-c-img-upload__dropzone'),
     ])
     console.log("imagePathArray 확인", imagePathArray);
     await fileChooser.accept(imagePathArray);
