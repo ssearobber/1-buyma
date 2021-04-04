@@ -23,7 +23,7 @@ async function buyma(row) {
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
-        // userDataDir: "/Users/samugari/Desktop/Chrome/UserData" // 로그인 정보 쿠키 저장
+        userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
     await page.setViewport({
@@ -131,7 +131,7 @@ async function buyma(row) {
     await page.type('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char',row.productPrice);
     
     //(商品画像)
-    fs.readdir(path.join(__dirname, '../tempSave'), async function(error, fileList){
+    await fs.readdir(path.join(__dirname, '../tempSave'), async function(error, fileList){
         console.log("tempSave 경로", path.join(__dirname, '../tempSave'));
         console.log("fileList 확인", fileList);
         imagePathArray = await fileList.map((v) => {
