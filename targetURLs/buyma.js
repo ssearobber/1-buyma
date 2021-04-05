@@ -16,20 +16,20 @@ async function buyma(row) {
 
     try {
         browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: [
-            '--window-size=1920,1080',
-            '--disable-notifications',
+            // '--window-size=1920,1080',
+            // '--disable-notifications',
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
         userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
-    await page.setViewport({
-        width: 1280,
-        height: 1080,
-    });
+    // await page.setViewport({
+    //     width: 1280,
+    //     height: 1080,
+    // });
     await page.setDefaultNavigationTimeout(0);
     await page.goto('https://www.buyma.com/my/sell/new?tab=b');
 
@@ -138,13 +138,24 @@ async function buyma(row) {
     imagePathArray = imagePathArray.map((v) => {
         return path.join(__dirname, `../tempSave/${v}`);
     });
-    const[fileChooser] = await Promise.all([
-        page.waitForFileChooser(),
-        page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
-    ])
-    console.log("imagePathArray 확인", imagePathArray);
-    await fileChooser.accept(imagePathArray);
-    await page.waitForTimeout(20000);
+    // const[fileChooser] = await Promise.all([
+    //     page.waitForFileChooser(),
+    //     page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
+    // ])
+    // console.log("imagePathArray 확인", imagePathArray);
+    // await fileChooser.accept(imagePathArray);
+    // await page.waitForTimeout(20000);
+
+    // await page.waitForSelector('input[type=file]');
+    // const inputUploadHandle = await page.$('input[type=file]');
+    // for (let i = 0 ; i < imagePathArray.length ; i ++) {
+    //     await inputUploadHandle.uploadFile(imagePathArray[i]);
+    // } 
+
+    await page.waitForSelector('input[type=file]');
+    const files = await Promise.all(imagePathArray);
+    const inputUploadHandle = await page.$('input[type=file]');
+    await inputUploadHandle.uploadFile(...files);
 
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
