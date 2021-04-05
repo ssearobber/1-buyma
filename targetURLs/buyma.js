@@ -16,10 +16,10 @@ async function buyma(row) {
 
     try {
         browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: [
-            // '--window-size=1920,1080',
-            // '--disable-notifications',
+            '--window-size=1920,1080',
+            '--disable-notifications',
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
@@ -145,7 +145,6 @@ async function buyma(row) {
     console.log("imagePathArray 확인", imagePathArray);
     await fileChooser.accept(imagePathArray);
     await page.waitForTimeout(20000);
-    console.log("imagePathArray 확인2", imagePathArray);
 
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
