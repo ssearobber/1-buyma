@@ -156,6 +156,7 @@ async function buyma(row) {
     const files = await Promise.all(imagePathArray);
     const inputUploadHandle = await page.$('input[type=file]');
     await inputUploadHandle.uploadFile(...files);
+    await page.waitForTimeout(20000);
 
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
