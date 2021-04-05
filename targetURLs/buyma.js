@@ -138,13 +138,13 @@ async function buyma(row) {
     imagePathArray = imagePathArray.map((v) => {
         return path.join(__dirname, `../tempSave/${v}`);
     });
-    // const[fileChooser] = await Promise.all([
-    //     page.waitForFileChooser(),
-    //     page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
-    // ])
-    // console.log("imagePathArray 확인", imagePathArray);
-    // await fileChooser.accept(imagePathArray);
-    // await page.waitForTimeout(20000);
+    const[fileChooser] = await Promise.all([
+        page.waitForFileChooser(),
+        page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
+    ])
+    console.log("imagePathArray 확인", imagePathArray);
+    await fileChooser.accept(imagePathArray);
+    await page.waitForTimeout(20000);
 
     // await page.waitForSelector('input[type=file]');
     // const inputUploadHandle = await page.$('input[type=file]');
@@ -152,11 +152,11 @@ async function buyma(row) {
     //     await inputUploadHandle.uploadFile(imagePathArray[i]);
     // } 
 
-    await page.waitForSelector('input[type=file]');
-    const files = await Promise.all(imagePathArray);
-    const inputUploadHandle = await page.$('input[type=file]');
-    await inputUploadHandle.uploadFile(...files);
-    await page.waitForTimeout(20000);
+    // await page.waitForSelector('input[type=file]');
+    // const files = await Promise.all(imagePathArray);
+    // const inputUploadHandle = await page.$('input[type=file]');
+    // await inputUploadHandle.uploadFile(...files);
+    // await page.waitForTimeout(20000);
 
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
@@ -169,7 +169,7 @@ async function buyma(row) {
                 return preVal + "\n" + CurVal.textContent}, ""); 
         return errString2;
     });
-    console.log("errData2 확인", errData2);
+    // console.log("errData2 확인", errData2);
     let errData = await page.evaluate(() => {
         let errString = Array.from(document.querySelectorAll(".bmm-c-box--overall-alert ul li")).reduce((preVal,CurVal) => {
                 return preVal + "\n" + CurVal.textContent}, ""); 
