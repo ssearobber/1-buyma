@@ -20,7 +20,7 @@ async function buyma(row) {
         args: [
             // '--window-size=1920,1080',
             // '--disable-notifications',
-            "--proxy-server=159.89.29.28:3128",
+            "--proxy-server=168.138.211.5:8080",
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
