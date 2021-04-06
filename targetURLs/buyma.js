@@ -32,7 +32,7 @@ async function buyma(row) {
     //     height: 1080,
     // });
     await page.setDefaultNavigationTimeout(0);
-    await page.goto('https://www.buyma.com/my/sell/new?tab=b', {timeout: 90000}));
+    await page.goto('https://www.buyma.com/my/sell/new?tab=b', {timeout: 90000});
 
     // 로그인 작업 건너뛰기
     if (await page.$('.user_name')) {
