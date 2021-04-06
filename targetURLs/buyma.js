@@ -24,6 +24,7 @@ async function buyma(row) {
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
+        slowMo : 50 ,
         userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
@@ -56,7 +57,7 @@ async function buyma(row) {
     await page.type('#comment textarea.bmm-c-textarea',row.comment);
 
     //(カテゴリ1)
-    await page.waitForSelector('#react-select-2--value .Select-placeholder');
+    await page.waitForSelector('#react-select-2--value .Select-value');
     await page.click('#react-select-2--value .Select-placeholder');
     await page.waitForSelector(`div[aria-label="${row.category1}"]`);
     await page.click(`div[aria-label="${row.category1}"]`);
