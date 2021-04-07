@@ -144,7 +144,7 @@ async function buyma(row) {
     });
     const[fileChooser] = await Promise.all([
         page.waitForFileChooser({timeout:60000}),
-        page.click('.bmm-c-img-upload__dropzone'),
+        page.click('.bmm-c-img-upload .bmm-c-img-upload__dropzone span'),
     ])
     console.log("imagePathArray 확인", imagePathArray);
     await fileChooser.accept(imagePathArray);
