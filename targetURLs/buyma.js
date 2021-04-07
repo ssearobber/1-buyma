@@ -24,7 +24,7 @@ async function buyma(row) {
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
-        // slowMo : 50 ,
+        // slowMo : 1 ,
         userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
@@ -135,20 +135,24 @@ async function buyma(row) {
     await page.type('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char',row.productPrice);
     
     //(商品画像)
-    imagePathArray = fs.readdirSync(path.join(__dirname, '../tempSave'), function(error, fileList){
+    imagePathArray = fs.readdirSync(path.join(__dirname, './tempSave'), function(error, fileList){
         if(error)return console.log("error",error);
         return fileList;
     })
+    // imagePathArray = imagePathArray.map((v) => {
+    //     return path.join(__dirname, `../tempSave/${v}`);
+    // });
     imagePathArray = imagePathArray.map((v) => {
-        return path.join(__dirname, `../tempSave/${v}`);
+        return `./targetURLs/tempSave//${v}`;
     });
+    
     const[fileChooser] = await Promise.all([
         page.waitForFileChooser(),
         page.click('.bmm-c-img-upload .bmm-c-img-upload__dropzone span'),
     ])
     console.log("imagePathArray 확인", imagePathArray);
+    // await fileChooser.accept(['/tempSave/스크린샷 2021-04-02 23.52.05.png']);
     await fileChooser.accept(imagePathArray);
-    console.log("fileChooserTest 확인", fileChooser.isMultiple());
     console.log("imagePathArray2 확인", imagePathArray);
     // await page.waitForTimeout(20000);
     await page.waitFor(20000);
