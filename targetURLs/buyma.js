@@ -140,46 +140,18 @@ async function buyma(row) {
     imagePathArray = imagePathArray.map((v) => {
         return path.join(__dirname, `../tempSave/${v}`);
     });
-    // imagePathArray = imagePathArray.map((v) => {
-    //     return `targetURLs/tempSave/${v}`;
-    // });
-    
     const[fileChooser] = await Promise.all([
         page.waitForFileChooser(),
         page.click('.bmm-c-img-upload .bmm-c-img-upload__dropzone span'),
     ])
-    console.log("imagePathArray 확인", imagePathArray);
     await fileChooser.accept(imagePathArray);
-    console.log("imagePathArray2 확인", imagePathArray);
     await page.waitForTimeout(20000);
-    // await page.waitFor(20000);
-
-    // await page.waitForSelector('input[type=file]');
-    // const inputUploadHandle = await page.$('input[type=file]');
-    // for (let i = 0 ; i < imagePathArray.length ; i ++) {
-        // await inputUploadHandle.uploadFile(imagePathArray[0]);
-    // } 
-
-    // await page.waitForSelector('input[type=file]');
-    // const files = await Promise.all(imagePathArray);
-    // const inputUploadHandle = await page.$('input[type=file]');
-    // await inputUploadHandle.uploadFile(...files);
-    // await page.waitForTimeout(20000);
-    // await page.waitFor(20000);
 
     //入力内容を確認するボタン
     await page.waitForSelector('.bmm-c-btns--balance-width button:nth-child(2)');
     await page.click('.bmm-c-btns--balance-width button:nth-child(2)');
 
     //에러 존재 확인 (에러가 존재하면 문자열로 만들어서 throw함)
-    // await page.waitForTimeout(10000);
-    //     let errData2 = await page.evaluate(() => {
-    //     let errString2 = Array.from(document.querySelectorAll(".bmm-c-box--alert ul li")).reduce((preVal,CurVal) => {
-    //             return preVal + "\n" + CurVal.textContent}, ""); 
-    //     return errString2;
-    // });
-    // console.log("errData2 확인", errData2);
-    // await page.waitFor(5000);
     await page.waitForTimeout(5000);
     let errData = await page.evaluate(() => {
         let errString = Array.from(document.querySelectorAll(".bmm-c-box--overall-alert ul li")).reduce((preVal,CurVal) => {
@@ -193,11 +165,9 @@ async function buyma(row) {
     await page.click('.bmm-c-modal__btns button:nth-child(2)');
 
     //출품 url
-    // await page.waitFor(20000);
     await page.waitForTimeout(20000);
     await page.waitForSelector('.sell-complete__lead a');
     await page.click('.sell-complete__lead a');
-    // await page.waitFor(20000);
     await page.waitForTimeout(20000);
     await page.waitForSelector('#js-add-cart-action');
 
