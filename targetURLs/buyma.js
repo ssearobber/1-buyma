@@ -143,7 +143,7 @@ async function buyma(row) {
     //     return path.join(__dirname, `../tempSave/${v}`);
     // });
     imagePathArray = imagePathArray.map((v) => {
-        return `./targetURLs/tempSave/${v}`;
+        return `targetURLs/tempSave/${v}`;
     });
     
     const[fileChooser] = await Promise.all([
