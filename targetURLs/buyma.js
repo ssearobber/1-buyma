@@ -20,11 +20,11 @@ async function buyma(row) {
         args: [
             // '--window-size=1920,1080',
             // '--disable-notifications',
-            "--proxy-server=157.90.137.189:3128",
+            // "--proxy-server=157.90.137.189:3128",
             "--no-sandbox",
             "--disable-setuid-sandbox",
         ],
-        slowMo : 50 ,
+        // slowMo : 50 ,
         userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
@@ -32,8 +32,10 @@ async function buyma(row) {
     //     width: 1280,
     //     height: 1080,
     // });
+    const version = await page.browser().version();
+    console.log("크롬 버전", version);
     await page.setDefaultNavigationTimeout(0);
-    await page.goto('https://www.buyma.com/my/sell/new?tab=b', {timeout: 180000});
+    await page.goto('https://www.buyma.com/my/sell/new?tab=b');
 
     // 로그인 작업 건너뛰기
     if (await page.$('.user_name')) {
@@ -146,7 +148,9 @@ async function buyma(row) {
     ])
     console.log("imagePathArray 확인", imagePathArray);
     await fileChooser.accept(imagePathArray);
-    await page.waitForTimeout(20000);
+    console.log("imagePathArray2 확인", imagePathArray);
+    // await page.waitForTimeout(20000);
+    await page.waitFor(20000);
 
     // await page.waitForSelector('input[type=file]');
     // const inputUploadHandle = await page.$('input[type=file]');
@@ -165,7 +169,7 @@ async function buyma(row) {
     await page.click('.bmm-c-btns--balance-width button:nth-child(2)');
 
     //에러 존재 확인 (에러가 존재하면 문자열로 만들어서 throw함)
-    await page.waitForTimeout(10000);
+    // await page.waitForTimeout(10000);
         let errData2 = await page.evaluate(() => {
         let errString2 = Array.from(document.querySelectorAll(".bmm-c-box--alert ul li")).reduce((preVal,CurVal) => {
                 return preVal + "\n" + CurVal.textContent}, ""); 
@@ -184,10 +188,12 @@ async function buyma(row) {
     await page.click('.bmm-c-modal__btns button:nth-child(2)');
 
     //출품 url
-    await page.waitForTimeout(20000);
+    // await page.waitForTimeout(20000);
+    await page.waitFor(20000);
     await page.waitForSelector('.sell-complete__lead a');
     await page.click('.sell-complete__lead a');
-    await page.waitForTimeout(20000);
+    // await page.waitForTimeout(20000);
+    await page.waitFor(20000);
     await page.waitForSelector('#js-add-cart-action');
 
     //(状態) 변경

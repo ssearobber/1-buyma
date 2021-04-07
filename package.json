@@ -17,7 +17,7 @@
     "googleapis": "^39.2.0",
     "node-schedule": "^2.0.0",
     "nodemon": "1.18.3",
-    "puppeteer": "^8.0.0",
+    "puppeteer": "^2.0.0",
     "request": "^2.88.2",
     "rimraf": "^3.0.2"
   },
