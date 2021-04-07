@@ -142,15 +142,15 @@ async function buyma(row) {
     imagePathArray = imagePathArray.map((v) => {
         return path.join(__dirname, `../tempSave/${v}`);
     });
-    const[fileChooser] = await Promise.all([
-        page.waitForFileChooser(),
-        page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
-    ])
-    console.log("imagePathArray 확인", imagePathArray);
-    await fileChooser.accept(imagePathArray);
-    console.log("imagePathArray2 확인", imagePathArray);
+    // const[fileChooser] = await Promise.all([
+    //     page.waitForFileChooser(),
+    //     page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
+    // ])
+    // console.log("imagePathArray 확인", imagePathArray);
+    // await fileChooser.accept(imagePathArray);
+    // console.log("imagePathArray2 확인", imagePathArray);
     // await page.waitForTimeout(20000);
-    await page.waitFor(20000);
+    // await page.waitFor(20000);
 
     // await page.waitForSelector('input[type=file]');
     // const inputUploadHandle = await page.$('input[type=file]');
@@ -158,10 +158,10 @@ async function buyma(row) {
     //     await inputUploadHandle.uploadFile(imagePathArray[0]);
     // } 
 
-    // await page.waitForSelector('input[type=file]');
-    // const files = await Promise.all(imagePathArray);
-    // const inputUploadHandle = await page.$('input[type=file]');
-    // await inputUploadHandle.uploadFile(...files);
+    await page.waitForSelector('input[type=file]');
+    const files = await Promise.all(imagePathArray);
+    const inputUploadHandle = await page.$('input[type=file]');
+    await inputUploadHandle.uploadFile(...files);
     // await page.waitForTimeout(20000);
     await page.waitFor(20000);
 
