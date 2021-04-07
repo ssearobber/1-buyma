@@ -143,11 +143,12 @@ async function buyma(row) {
         return path.join(__dirname, `../tempSave/${v}`);
     });
     const[fileChooser] = await Promise.all([
-        page.waitForFileChooser({timeout:60000}),
+        page.waitForFileChooser(),
         page.click('.bmm-c-img-upload .bmm-c-img-upload__dropzone span'),
     ])
     console.log("imagePathArray 확인", imagePathArray);
     await fileChooser.accept(imagePathArray);
+    console.log("fileChooserTest 확인", fileChooser.isMultiple());
     console.log("imagePathArray2 확인", imagePathArray);
     // await page.waitForTimeout(20000);
     await page.waitFor(20000);
