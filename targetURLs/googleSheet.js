@@ -52,7 +52,7 @@ async function googleSheet() {
 
 // tempSave폴더 생성
 async function mkdir() {
-        await fs.mkdir(path.join(__dirname, './tempSave'),function(err){
+        await fs.mkdir(path.join(__dirname, '../tempSave'),function(err){
             if(err){
                 throw err;
             }
@@ -62,7 +62,7 @@ async function mkdir() {
 
 // tempSave폴더 삭제
 async function rmdir() {
-        rimraf.sync(path.join(__dirname, './tempSave'));
+        rimraf.sync(path.join(__dirname, '../tempSave'));
 }
 
 module.exports.googleSheet = googleSheet;

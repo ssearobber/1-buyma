@@ -32,8 +32,6 @@ async function buyma(row) {
     //     width: 1280,
     //     height: 1080,
     // });
-    const version = await page.browser().version();
-    console.log("크롬 버전", version);
     await page.setDefaultNavigationTimeout(0);
     await page.goto('https://www.buyma.com/my/sell/new?tab=b');
 
@@ -135,27 +133,26 @@ async function buyma(row) {
     await page.type('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char',row.productPrice);
     
     //(商品画像)
-    imagePathArray = fs.readdirSync(path.join(__dirname, './tempSave'), function(error, fileList){
+    imagePathArray = fs.readdirSync(path.join(__dirname, '../tempSave'), function(error, fileList){
         if(error)return console.log("error",error);
         return fileList;
     })
-    // imagePathArray = imagePathArray.map((v) => {
-    //     return path.join(__dirname, `../tempSave/${v}`);
-    // });
     imagePathArray = imagePathArray.map((v) => {
-        return `targetURLs/tempSave/${v}`;
+        return path.join(__dirname, `../tempSave/${v}`);
     });
+    // imagePathArray = imagePathArray.map((v) => {
+    //     return `targetURLs/tempSave/${v}`;
+    // });
     
     const[fileChooser] = await Promise.all([
         page.waitForFileChooser(),
         page.click('.bmm-c-img-upload .bmm-c-img-upload__dropzone span'),
     ])
     console.log("imagePathArray 확인", imagePathArray);
-    // await fileChooser.accept(['/tempSave/스크린샷 2021-04-02 23.52.05.png']);
     await fileChooser.accept(imagePathArray);
     console.log("imagePathArray2 확인", imagePathArray);
-    // await page.waitForTimeout(20000);
-    await page.waitFor(20000);
+    await page.waitForTimeout(20000);
+    // await page.waitFor(20000);
 
     // await page.waitForSelector('input[type=file]');
     // const inputUploadHandle = await page.$('input[type=file]');
@@ -182,7 +179,8 @@ async function buyma(row) {
     //     return errString2;
     // });
     // console.log("errData2 확인", errData2);
-    await page.waitFor(5000);
+    // await page.waitFor(5000);
+    await page.waitForTimeout(5000);
     let errData = await page.evaluate(() => {
         let errString = Array.from(document.querySelectorAll(".bmm-c-box--overall-alert ul li")).reduce((preVal,CurVal) => {
                 return preVal + "\n" + CurVal.textContent}, ""); 
@@ -195,12 +193,12 @@ async function buyma(row) {
     await page.click('.bmm-c-modal__btns button:nth-child(2)');
 
     //출품 url
-    // await page.waitForTimeout(20000);
-    await page.waitFor(20000);
+    // await page.waitFor(20000);
+    await page.waitForTimeout(20000);
     await page.waitForSelector('.sell-complete__lead a');
     await page.click('.sell-complete__lead a');
-    // await page.waitForTimeout(20000);
-    await page.waitFor(20000);
+    // await page.waitFor(20000);
+    await page.waitForTimeout(20000);
     await page.waitForSelector('#js-add-cart-action');
 
     //(状態) 변경

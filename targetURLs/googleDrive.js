@@ -93,7 +93,7 @@ async function getFileName( folderId ) {
  * @param {response.data.files.id} folderId
  */
 async function downloadFile( fileId , fileName) {
-    let dest = fs.createWriteStream(path.join(__dirname, `./tempSave/${fileName}`));
+    let dest = fs.createWriteStream(path.join(__dirname, `../tempSave/${fileName}`));
     drive.files.get({
         fileId : `${fileId}`,
         alt: 'media',
