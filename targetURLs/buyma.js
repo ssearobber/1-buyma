@@ -144,7 +144,7 @@ async function buyma(row) {
     });
     const[fileChooser] = await Promise.all([
         page.waitForFileChooser({timeout:60000}),
-        page.click('.bmm-c-field__input .bmm-c-img-upload__dropzone'),
+        page.click('.bmm-c-img-upload__dropzone'),
     ])
     console.log("imagePathArray 확인", imagePathArray);
     await fileChooser.accept(imagePathArray);
@@ -155,7 +155,7 @@ async function buyma(row) {
     // await page.waitForSelector('input[type=file]');
     // const inputUploadHandle = await page.$('input[type=file]');
     // for (let i = 0 ; i < imagePathArray.length ; i ++) {
-    //     await inputUploadHandle.uploadFile(imagePathArray[0]);
+        // await inputUploadHandle.uploadFile(imagePathArray[0]);
     // } 
 
     // await page.waitForSelector('input[type=file]');
