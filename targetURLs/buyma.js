@@ -105,8 +105,8 @@ async function buyma(row) {
     //(サイズ)
     await page.waitForSelector('#react-tabs-2');
     await page.click('#react-tabs-2');
-    await page.waitForSelector('#react-select-17--value .Select-placeholder');
-    await page.click('#react-select-17--value .Select-placeholder');
+    await page.waitForSelector('#react-select-13--value .Select-placeholder');
+    await page.click('#react-select-13--value .Select-placeholder');
     await page.waitForSelector(`div[aria-label="${row.size}"]`);
     await page.click(`div[aria-label="${row.size}"]`);
 
