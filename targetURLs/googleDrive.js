@@ -17,13 +17,22 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 // 토큰 획득
-oauth2Client.on('tokens', (tokens) => {
-  if (tokens.refresh_token) {
-    REFRESH_TOKEN = tokens.access_token;
-    console.log("REFRESH_TOKEN 기존 기존");
-  }
-  console.log("REFRESH_TOKEN 새로운 토큰");
-});
+// oauth2Client.on('tokens', (tokens) => {
+//   if (tokens.refresh_token) {
+//     REFRESH_TOKEN = tokens.access_token;
+//     console.log("REFRESH_TOKEN 기존 기존");
+//   }
+//   console.log("REFRESH_TOKEN 새로운 토큰");
+// });
+
+// oAuth2Client.refreshAccessToken((error, tokens) => {
+//   console.log('refreshAccessToken', tokens);
+//   REFRESH_TOKEN = tokens
+
+//   if (error) {
+//     console.log('error ',error);
+//   }
+// })
 
 oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
