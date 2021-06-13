@@ -126,7 +126,18 @@ async function buyma(row) {
     await page.keyboard.press('Enter');
 
     //TODO (買付地) default값 그대로 사용
-    //TODO (発送地) default값 그대로 사용
+    //(発送地) default값 그대로 사용 -> [수정 2021/06/13] 発送地등록 추가
+    await page.waitForSelector('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
+    await page.click('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
+    await page.waitForSelector('#react-select-18--value-item');
+    await page.click('#react-select-18--value-item');
+    await page.waitForSelector('div[aria-label="アジア"]');
+    await page.click('div[aria-label="アジア"]');
+    await page.waitForSelector('#react-select-19--value-item');
+    await page.click('#react-select-19--value-item');
+    await page.waitForSelector('div[aria-label="韓国"]');
+    await page.click('div[aria-label="韓国"]');
+
     //(商品価格)
     await page.waitForSelector('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char');
     await page.focus('.bmm-c-custom-text--unit-left input.bmm-c-text-field--half-size-char');
