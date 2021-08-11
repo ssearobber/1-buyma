@@ -16,10 +16,10 @@ async function buyma(row) {
 
     try {
         browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: [
-            '--window-size=1920,1080',
-            '--disable-notifications',
+            // '--window-size=1920,1080',
+            // '--disable-notifications',
             // "--proxy-server=157.90.137.189:3128",
             "--no-sandbox",
             "--disable-setuid-sandbox",
@@ -28,10 +28,10 @@ async function buyma(row) {
         userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
-    await page.setViewport({
-        width: 1280,
-        height: 1080,
-    });
+    // await page.setViewport({
+    //     width: 1280,
+    //     height: 1080,
+    // });
     await page.setDefaultNavigationTimeout(0);
     await page.goto('https://www.buyma.com/my/sell/new?tab=b');
 
@@ -80,7 +80,9 @@ async function buyma(row) {
 
     //(ブランド)
     await page.waitForSelector('input[placeholder="ブランド名を入力すると候補が表示されます"]');
-    if (row.brand) await page.type('input[placeholder="ブランド名を入力すると候補が表示されます"]',row.brand);
+    if (row.brand) {
+        await page.type('input[placeholder="ブランド名を入力すると候補が表示されます"]',row.brand);
+    }
     if (row.checkedBrand == "◯") await page.evaluate(() => { document.querySelector(".bmm-c-checkbox .bmm-c-checkbox__input").click();});
     //(シーズン)
 
@@ -104,6 +106,14 @@ async function buyma(row) {
         //(新しい色を追加)
         if(i < array1.length -1) await page.click('.bmm-c-form-table__foot a');
         }
+    }
+
+    // add 2021/8/11 (ブランド) 브랜드 입력란 포커스를 벗어나기 위해 여기서 실행
+    if (row.brand) {
+        await page.click('input[placeholder="ブランド名を入力すると候補が表示されます"]');
+        await page.waitForTimeout(2000);
+        await page.waitForSelector('.bmm-c-suggest__main');
+        await page.click('.bmm-c-suggest__main');
     }
 
     //(サイズ)
