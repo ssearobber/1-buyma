@@ -16,10 +16,10 @@ async function buyma(row) {
 
     try {
         browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: [
-            // '--window-size=1920,1080',
-            // '--disable-notifications',
+            '--window-size=1920,1080',
+            '--disable-notifications',
             // "--proxy-server=157.90.137.189:3128",
             "--no-sandbox",
             "--disable-setuid-sandbox",
@@ -28,10 +28,10 @@ async function buyma(row) {
         userDataDir: path.join(__dirname, '../UserData') // 로그인 정보 쿠키 저장
     });
     page = await browser.newPage();
-    // await page.setViewport({
-    //     width: 1280,
-    //     height: 1080,
-    // });
+    await page.setViewport({
+        width: 1280,
+        height: 1080,
+    });
     await page.setDefaultNavigationTimeout(0);
     await page.goto('https://www.buyma.com/my/sell/new?tab=b');
 
@@ -63,14 +63,18 @@ async function buyma(row) {
     await page.click(`div[aria-label="${row.category1}"]`);
 
     //(カテゴリ2)
-    await page.waitForSelector('#react-select-10--value');
-    await page.click('#react-select-10--value .Select-placeholder');
+    // await page.waitForSelector('#react-select-10--value');
+    // await page.click('#react-select-10--value .Select-placeholder');
+    await page.waitForSelector('#react-select-12--value');
+    await page.click('#react-select-12--value .Select-placeholder');
     await page.waitForSelector(`div[aria-label="${row.category2}"]`);
     await page.click(`div[aria-label="${row.category2}"]`);
 
     //(カテゴリ3)
-    await page.waitForSelector('#react-select-11--value');
-    await page.click('#react-select-11--value .Select-placeholder');
+    // await page.waitForSelector('#react-select-11--value');
+    // await page.click('#react-select-11--value .Select-placeholder');
+    await page.waitForSelector('#react-select-13--value');
+    await page.click('#react-select-13--value .Select-placeholder');
     await page.waitForSelector(`div[aria-label="${row.category3}"]`);
     await page.click(`div[aria-label="${row.category3}"]`);
 
@@ -129,12 +133,16 @@ async function buyma(row) {
     //(発送地) default값 그대로 사용 -> [수정 2021/06/13] 発送地등록 추가
     await page.waitForSelector('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
     await page.click('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
-    await page.waitForSelector('#react-select-18--value-item');
-    await page.click('#react-select-18--value-item');
+    // await page.waitForSelector('#react-select-18--value-item');
+    // await page.click('#react-select-18--value-item');
+    await page.waitForSelector('#react-select-9--value-item');
+    await page.click('#react-select-9--value-item');
     await page.waitForSelector('div[aria-label="アジア"]');
     await page.click('div[aria-label="アジア"]');
-    await page.waitForSelector('#react-select-19--value-item');
-    await page.click('#react-select-19--value-item');
+    // await page.waitForSelector('#react-select-19--value-item');
+    // await page.click('#react-select-19--value-item');
+    await page.waitForSelector('#react-select-10--value-item');
+    await page.click('#react-select-10--value-item');
     await page.waitForSelector('div[aria-label="韓国"]');
     await page.click('div[aria-label="韓国"]');
 
