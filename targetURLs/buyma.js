@@ -147,11 +147,15 @@ async function buyma(row) {
     // await page.click('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
     let selector = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body';
     let selector2 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2)';
-    await page.evaluate((selector) => {
+    let selector3 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input';
+    let selector4 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9';
+    await page.evaluate((selector,selector2,selector3,selector4) => {
     console.log(document.querySelector("selector",selector));
     console.log(document.querySelector("selector2",selector2));
+    console.log(document.querySelector("selector3",selector3));
+    console.log(document.querySelector("selector4",selector4));
     document.querySelector(selector).click();
-    }, selector); 
+    }, selector,selector2,selector3,selector4); 
     // await page.waitForSelector('#react-select-18--value-item');
     // await page.click('#react-select-18--value-item');
     await page.waitForSelector('#react-select-9--value-item');
