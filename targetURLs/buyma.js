@@ -145,21 +145,24 @@ async function buyma(row) {
     // await page.waitForSelector('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
     // update 2021/8/22 page.click() -> await page.evaluate((selector) => document.querySelector(selector).click(), selector); 
     // await page.click('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
-    let selector = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body';
+    let selector = '.bmm-c-panel__item:nth-child(4) .bmm-c-radio:nth-child(2)';
     let selector2 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2)';
     let selector3 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input';
     let selector4 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9';
-    page.on('console', msg => {
-    for (let i = 0; i < msg._args.length; ++i)
-      console.log(`${i}: ${msg._args[i]}`);
-  });
-    await page.evaluate((selector,selector2,selector3,selector4) => {
-    console.log(document.querySelector("selector",selector));
-    console.log(document.querySelector("selector2",selector2));
-    console.log(document.querySelector("selector3",selector3));
-    console.log(document.querySelector("selector4",selector4));
+    // page.on('console', msg => {
+    // for (let i = 0; i < msg._args.length; ++i)
+    //   console.dir(`${i}: ${msg._args[i]}`);
+    // });
+    await page.evaluate((selector) => {
+    // console.log(selector);
+    // console.dir("selector2",document.querySelector(selector2));
+    // console.dir("selector3",document.querySelector(selector3));
+    // console.dir("selector4",document.querySelector(selector4));
+    // console.dir("selector2",document.getElementsByClassName("bmm-c-panel:nth-child(7) bmm-c-panel__item:nth-child(4) bmm-l-col-9 bmm-c-field__input bmm-c-radio:nth-child(2)"));
+    // console.dir("selector3",document.getElementsByClassName("bmm-c-panel:nth-child(7) bmm-c-panel__item:nth-child(4) bmm-l-col-9 bmm-c-field__input"));
+    // console.dir("selector4",document.getElementsByClassName("bmm-c-panel:nth-child(7) bmm-c-panel__item:nth-child(4) bmm-l-col-9"));
     document.querySelector(selector).click();
-    }, selector,selector2,selector3,selector4); 
+    }, selector); 
     // await page.waitForSelector('#react-select-18--value-item');
     // await page.click('#react-select-18--value-item');
     await page.waitForSelector('#react-select-9--value-item');
