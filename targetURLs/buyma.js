@@ -143,27 +143,9 @@ async function buyma(row) {
     //(発送地) default값 그대로 사용 -> [수정 2021/06/13] 発送地등록 추가
     // update 2021/8/12 page.waitForSelector()를 사용할 때, 선택자가 길면 잘 안되서 코멘트처리
     // await page.waitForSelector('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
-    // update 2021/8/22 page.click() -> await page.evaluate((selector) => document.querySelector(selector).click(), selector); 
+    // update 2021/8/22 page.click(여기를 짧게 줄였음)
     // await page.click('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
     await page.click('.bmm-c-panel__item:nth-child(4) .bmm-c-radio:nth-child(2)');
-    // let selector = '.bmm-c-panel__item:nth-child(4) .bmm-c-radio:nth-child(2)';
-    // let selector2 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2)';
-    // let selector3 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input';
-    // let selector4 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9';
-    // page.on('console', msg => {
-    // for (let i = 0; i < msg._args.length; ++i)
-    //   console.dir(`${i}: ${msg._args[i]}`);
-    // });
-    // await page.evaluate((selector) => {
-    // // console.log(selector);
-    // // console.dir("selector2",document.querySelector(selector2));
-    // // console.dir("selector3",document.querySelector(selector3));
-    // // console.dir("selector4",document.querySelector(selector4));
-    // // console.dir("selector2",document.getElementsByClassName("bmm-c-panel:nth-child(7) bmm-c-panel__item:nth-child(4) bmm-l-col-9 bmm-c-field__input bmm-c-radio:nth-child(2)"));
-    // // console.dir("selector3",document.getElementsByClassName("bmm-c-panel:nth-child(7) bmm-c-panel__item:nth-child(4) bmm-l-col-9 bmm-c-field__input"));
-    // // console.dir("selector4",document.getElementsByClassName("bmm-c-panel:nth-child(7) bmm-c-panel__item:nth-child(4) bmm-l-col-9"));
-    // document.querySelector(selector).click();
-    // }, selector); 
 
     // await page.waitForSelector('#react-select-18--value-item');
     // await page.click('#react-select-18--value-item');

@@ -15,3 +15,6 @@
 
 2021/8/12
 - page.waitForSelector()를 사용할 때, 선택자가 여러개면 puppeteer가 인식을 잘 못함.
+
+2021/8/22
+- page.click()를 사용할 떄, 선택자의 길이를 짧게 고침
