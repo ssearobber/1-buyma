@@ -146,7 +146,12 @@ async function buyma(row) {
     // update 2021/8/22 page.click() -> await page.evaluate((selector) => document.querySelector(selector).click(), selector); 
     // await page.click('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
     let selector = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body';
-    await page.evaluate((selector) => document.querySelector(selector).click(), selector); 
+    let selector2 = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2)';
+    await page.evaluate((selector) => {
+    console.log(document.querySelector("selector",selector));
+    console.log(document.querySelector("selector2",selector2));
+    document.querySelector(selector).click();
+    }, selector); 
     // await page.waitForSelector('#react-select-18--value-item');
     // await page.click('#react-select-18--value-item');
     await page.waitForSelector('#react-select-9--value-item');
