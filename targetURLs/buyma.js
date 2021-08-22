@@ -143,7 +143,10 @@ async function buyma(row) {
     //(発送地) default값 그대로 사용 -> [수정 2021/06/13] 発送地등록 추가
     // update 2021/8/12 page.waitForSelector()를 사용할 때, 선택자가 길면 잘 안되서 코멘트처리
     // await page.waitForSelector('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
-    await page.click('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
+    // update 2021/8/22 page.click() -> await page.evaluate((selector) => document.querySelector(selector).click(), selector); 
+    // await page.click('.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body');
+    let selector = '.bmm-c-panel:nth-child(7) .bmm-c-panel__item:nth-child(4) .bmm-l-col-9 .bmm-c-field__input .bmm-c-radio:nth-child(2) .bmm-c-radio__body';
+    await page.evaluate((selector) => document.querySelector(selector).click(), selector); 
     // await page.waitForSelector('#react-select-18--value-item');
     // await page.click('#react-select-18--value-item');
     await page.waitForSelector('#react-select-9--value-item');

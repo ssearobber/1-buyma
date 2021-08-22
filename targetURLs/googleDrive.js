@@ -76,6 +76,7 @@ async function getFolderName() {
     return response.data.files;
   } catch (error) {
     console.log('getFolderName 에러',error.message);
+    //TODO refresh token의 갱신이 필요할 경우
   }
 }
 
